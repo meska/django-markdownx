@@ -104,8 +104,9 @@ class ImageForm(forms.Form):
         full_path = path.join(MARKDOWNX_MEDIA_PATH, unique_file_name)
 
         if commit:
-            default_storage.save(full_path, image)
-            return default_storage.url(full_path)
+            # termporary fix for dj3-cloudinary-storage
+            res = default_storage.save(full_path, image)
+            return default_storage.url(res)
 
         # If `commit is False`, return the path and in-memory image.
         image_data = namedtuple('image_data', ['path', 'image'])
